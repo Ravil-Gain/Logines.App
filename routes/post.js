@@ -3,8 +3,10 @@ const verify = require('./verifyToken');
 
 // get
 router.get('/', verify, (req, res)=>{
+    console.log('im here');
+    
     res.json({
-        someData:''
+        someData: req.headers['auth-token']
     });
 });
 

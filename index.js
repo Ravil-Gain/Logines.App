@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoute =require('./routes/auth');
-const posts = require('./routes/userWorkTime');
+const userWorkTime = require('./routes/userWorkTime');
 dotenv.config();
 
 mongoose.connect(
@@ -18,6 +18,6 @@ app.use(cors());
 
 //Routes Middlewares
 app.use('/api/user', authRoute);
-app.use('/api/userWorkTime', posts);
+app.use('/api/userWorkTime', userWorkTime);
 
 app.listen(3000, () => console.log('start'));

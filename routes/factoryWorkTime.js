@@ -9,6 +9,11 @@ router.get('/', verify, (req, res)=>{
 });
 
 //post
+router.post('/', verify, (req, res)=>{
+    res.json({
+        someData:''
+    });
+});
 
 //delete
 
