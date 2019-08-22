@@ -2,11 +2,9 @@ const router = require('express').Router();
 
 // get
 router.get('/', (req, res)=>{
-    console.log('im here');
-    
-    res.json({
-        someData: req.headers['auth-token']
-    });
+    // if(req.user.role !== 'admin') return res.status(401).send('Access denied');
+    const data = await Factory.find({});
+    res.json(data);
 });
 
 //post

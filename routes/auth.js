@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const User = require('../model/User');
-const { registerValidation, loginValidation } = require('../validation');
+const { registerValidation, loginValidation } = require('./util/validation');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -12,6 +12,10 @@ router.post('/register', async (req, res) =>{
     // email
     const emailCheck = await User.findOne({email: req.body.email});
     if(emailCheck) return res.status(400).send('Email alredy exist');
+    
+    // user name
+    const user_name = await User.findOne({user_name: req.body.user_name});
+    if(user_name) return res.status(400).send('user_name alredy exist');
 
     // password 
     const salt = await bcrypt.genSalt(10);

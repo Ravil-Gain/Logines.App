@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const cors = require('cors');
-const authRoute =require('./routes/auth');
-const userWorkTime = require('./routes/userWorkTime');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const authRoute = require('./routes/auth');
+const verify = require('./routes/util/verifyToken');
+const factoryRoute = require('./routes/factory');
+const userWorkTimeRoute = require('./routes/userWorkTime');
 dotenv.config();
 
 mongoose.connect(
@@ -17,7 +19,9 @@ app.use(express.json());
 app.use(cors());
 
 //Routes Middlewares
+app.use('/api', verify);
 app.use('/api/user', authRoute);
-app.use('/api/userWorkTime', userWorkTime);
+app.use('/api/factory', factoryRoute);
+app.use('/api/userWorkTime', userWorkTimeRoute);
 
 app.listen(3000, () => console.log('start'));
