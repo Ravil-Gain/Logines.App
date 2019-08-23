@@ -45,7 +45,6 @@ router.post('/register', async (req, res) => {
     return log('registration', user.user_name, req.user.user_name);
 });
 
-// get
 router.get('/', async (req, res) => {
     let data;
     switch (req.user.role) {
@@ -59,13 +58,13 @@ router.get('/', async (req, res) => {
     res.json(data);
 });
 
+// pointless???
 router.get('/:id', async (req, res) => {
     if (req.user.role !== 'admin') return res.status(401).send('Access denied');
     const data = await User.findById({ _id: req.params.id });
     res.json(data);
 });
 
-//post
 router.put('/:id', async (req, res) => {
     if (req.user.role !== 'admin') return res.status(401).send('Access denied');
     const user = await User.findById({ _id: req.params.id });
@@ -94,7 +93,6 @@ router.put('/:id', async (req, res) => {
     return log('edit_User', JSON.stringify(req.body), req.user.user_name);
 });
 
-//delete
 router.delete('/:id', async (req, res) => {
     if (req.user.role !== 'admin') return res.status(401).send('Access denied');
 
@@ -103,7 +101,6 @@ router.delete('/:id', async (req, res) => {
     });
 
 });
-//update
 
 const hashPassword = async (password) => {
     const salt = await bcrypt.genSalt(10);

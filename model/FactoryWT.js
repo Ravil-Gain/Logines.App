@@ -7,7 +7,7 @@ const factoryWTSchema = new mongoose.Schema({
     description: { type: String, min: 1, max: 255},
     created: { type: Date, default: Date.now },
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    factory: {type: mongoose.Schema.Types.ObjectId, ref: 'Factory'},
+    factory: {type: mongoose.Schema.Types.ObjectId, ref: 'Factory'}
 });
 
 module.exports = mongoose.model('FactoryWT', factoryWTSchema);

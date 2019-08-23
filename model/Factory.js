@@ -30,10 +30,7 @@ const factorySchema = new mongoose.Schema({
     active: {
         type: Boolean,
     },
-    created: { type: Date, default: Date.now },
-    factoryWT: [{type: mongoose.Schema.Types.ObjectId, ref: 'FactoryWT'}],
-    users: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    userWT: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserWT'}],
+    created: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Factory', factorySchema);

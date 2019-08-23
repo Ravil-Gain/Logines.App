@@ -58,9 +58,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
     },
     created: { type: Date, default: Date.now },
-    userWT: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserWT'}],
-    factories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Factory'}],
-    logs: [{type: mongoose.Schema.Types.ObjectId, ref: 'Log'}]
+    factories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Factory'}]
 });
 
 module.exports = mongoose.model('User', userSchema);
