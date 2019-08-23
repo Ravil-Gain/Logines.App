@@ -13,8 +13,13 @@ const logSchema = new mongoose.Schema({
         min: 6,
         max: 255
     },
+    user: {
+        type: String,
+        required: true,
+        min: 6,
+        max: 255
+    },
     created: { type: Date, default: Date.now },
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 });
 
 module.exports = mongoose.model('Log', logSchema);

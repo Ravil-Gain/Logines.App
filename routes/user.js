@@ -3,6 +3,7 @@ const User = require('../model/User');
 const { registerValidation, loginValidation } = require('./util/validation');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const log = require('./util/log');
 
 router.post('/register', async (req, res) =>{
     // validation
@@ -31,17 +32,17 @@ router.post('/register', async (req, res) =>{
         phone_number: req.body.phone_number,
         email: req.body.email,
         user_name: req.body.user_name,
-        password: hashPassword(req.body.password),
+        password: await hashPassword(req.body.password),
         role: 'worker',
         active: true
     });
     try{
         const saveUser = await user.save();
-        return res.send(saveUser);
+        res.send(saveUser);
     }catch(error){
         res.status(400).send(error);
     }
-    res.send('register');
+    log('registration', user.user_name, req.user.user_name);
 });
 
 router.post('/login', async (req,res)=>{
@@ -58,6 +59,7 @@ router.post('/login', async (req,res)=>{
     // assign token
     const token = jwt.sign({_id: user._id}, process.env.TOKEN)
     res.header('auth-token', token).send(token);
+    log('login', user._id, req.user.user_name);
 });
 
 // get
@@ -91,14 +93,13 @@ router.put('/:id', async (req, res)=>{
         if(req.body.password) {
             user.password = await hashPassword(req.body.password);
         }
-    console.log(user);
-    
     try {
         const save = await user.save();
-        return res.send(save);
+        res.send(save);
     } catch (error) {
         res.status(400).send(error);
     }
+    log('edit_User', JSON.stringify(req.body), req.user.user_name);
 });
 
 //delete
@@ -108,6 +109,7 @@ router.delete('/:id', async (req, res)=>{
     res.json({
         someData:''
     });
+    
 });
 //update
 

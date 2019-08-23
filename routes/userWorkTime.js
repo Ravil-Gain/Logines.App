@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const UserWT = require('../model/UserWT');
+const log = require('./util/log');
 
 // get
 router.get('/', async (req, res) => {
@@ -34,6 +35,7 @@ router.post('/', async (req, res) => {
     } catch (error) {
         res.status(400).send(error);
     }
+    log('UserWT_add', `${userWT._id} created by ${req.user.user_name}`);
 });
 
 //delete
