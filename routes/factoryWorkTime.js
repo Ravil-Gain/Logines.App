@@ -4,7 +4,6 @@ const log = require('./util/log');
 
 // get
 router.get('/', async (req, res)=>{
-    // const user = await User.findOne({ _id: req.user._id });
     let data;
     switch (req.user.role) {
         case 'admin':
@@ -21,6 +20,7 @@ router.get('/', async (req, res)=>{
 
 //post
 router.post('/', async (req, res)=>{
+    if (req.user.role !== 'admin') return res.status(401).send('Access denied');
     const factoryWT = new FactoryWT({
         start_time: req.body.start_time,
         end_time: req.body.end_time,
@@ -35,7 +35,7 @@ router.post('/', async (req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
-    log('FactoryWT', factoryWT._id, req.user.user_name);
+    return log('FactoryWT', factoryWT._id, req.user.user_name);
 });
 
 //delete

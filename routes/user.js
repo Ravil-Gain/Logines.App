@@ -42,7 +42,7 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(400).send(error);
     }
-    log('registration', user.user_name, req.user.user_name);
+    return log('registration', user.user_name, req.user.user_name);
 });
 
 // get
