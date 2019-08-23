@@ -74,9 +74,8 @@ router.get('/:id', async (req, res)=>{
 });
 
 //post
-router.post('/:id', async (req, res)=>{
+router.put('/:id', async (req, res)=>{
     if(req.user.role !== 'admin') return res.status(401).send('Access denied');
-    console.log(req.params.id);
     const user = await User.findById({_id: req.params.id});
         req.body.first_name ? user.first_name = req.body.first_name : null;
         req.body.middle_name ? user.middle_name = req.body.middle_name : null;
