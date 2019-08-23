@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userRoute = require('./routes/user');
+const loginRoute = require('./routes/login');
 const factoryRoute = require('./routes/factory');
 const verify = require('./routes/util/verifyToken');
 const userWorkTimeRoute = require('./routes/userWorkTime');
@@ -19,8 +20,9 @@ mongoose.connect(
 app.use(express.json());
 app.use(cors());
 
-//Routes Middlewares
+//Routes
 app.use('/api', verify);
+app.use('/login', loginRoute);
 app.use('/api/user', userRoute);
 app.use('/api/factory', factoryRoute);
 app.use('/api/userWorkTime', userWorkTimeRoute);

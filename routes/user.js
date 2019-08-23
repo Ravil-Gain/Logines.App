@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const User = require('../model/User');
-const { registerValidation, loginValidation } = require('./util/validation');
+const { registerValidation } = require('./util/validation');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const log = require('./util/log');
 
 router.post('/register', async (req, res) =>{
@@ -45,23 +44,6 @@ router.post('/register', async (req, res) =>{
     log('registration', user.user_name, req.user.user_name);
 });
 
-router.post('/login', async (req,res)=>{
-    // validation
-    const { error } = loginValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    // verification
-    const user = await User.findOne({user_name: req.body.user_name});
-    if(!user) return res.status(400).send('Email or password is wrong1');
-    const validPass = await bcrypt.compare(req.body.password, user.password);
-    if (!validPass) return res.status(400).send('Email or password is wrong2');
-
-    // assign token
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN)
-    res.header('auth-token', token).send(token);
-    log('login', user._id, req.user.user_name);
-});
-
 // get
 router.get('/', async (req, res)=>{
     if(req.user.role !== 'admin') return res.status(401).send('Access denied');
@@ -89,6 +71,7 @@ router.put('/:id', async (req, res)=>{
         req.body.user_name ? user.user_name = req.body.user_name : null;
         req.body.role ? user.role = req.body.role : null;
         req.body.active ? user.active = req.body.active : null;
+        req.body.factories ? user.factories = req.body.factories : null;
         // password
         if(req.body.password) {
             user.password = await hashPassword(req.body.password);

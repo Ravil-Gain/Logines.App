@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const FactoryWT = require('../model/FactoryWT');
+const log = require('./util/log');
+
 // get
 router.get('/', async (req, res)=>{
     // const user = await User.findOne({ _id: req.user._id });
@@ -29,10 +31,11 @@ router.post('/', async (req, res)=>{
     });
     try {
         const saveWT = await factoryWT.save();
-        return res.send(saveWT);
+        res.send(saveWT);
     } catch (error) {
         res.status(400).send(error);
     }
+    log('FactoryWT', factoryWT._id, req.user.user_name);
 });
 
 //delete
