@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const FactoryWT = require('../model/FactoryWT');
 // get
-router.get('/', (req, res)=>{
+router.get('/', async (req, res)=>{
     // const user = await User.findOne({ _id: req.user._id });
     let data;
     switch (req.user.role) {
@@ -18,7 +18,7 @@ router.get('/', (req, res)=>{
 });
 
 //post
-router.post('/', (req, res)=>{
+router.post('/', async (req, res)=>{
     const factoryWT = new FactoryWT({
         start_time: req.body.start_time,
         end_time: req.body.end_time,

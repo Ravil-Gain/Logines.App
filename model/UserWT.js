@@ -6,7 +6,7 @@ const UserWT = new mongoose.Schema({
     end_time: { type: Date, required: true },
     lunch: { type: Number },
     description: { type: String, min: 1, max: 255},
-    commited: { type: Number },
+    commited_amount: { type: Number },
     created: { type: Date, default: Date.now },
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     factory: {type: mongoose.Schema.Types.ObjectId, ref: 'Factory'},

@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
         end_time: req.body.end_time,
         lunch: req.body.lunch,
         description: req.body.description,
-        commited: 0,
+        commited_amount: 0,
         user: req.user._id,
         factory: req.user.factory,
     });
