@@ -3,8 +3,7 @@ const Factory = require('../model/Factory');
 const log = require('./util/log');
 
 // get
-router.get('/', async (req, res)=>{
-    // if(req.user.role !== 'admin') return res.status(401).send('Access denied');
+router.get('/', async (req, res) => {
     try {
         let data;
         switch (req.user.role) {
@@ -24,8 +23,8 @@ router.get('/', async (req, res)=>{
 });
 
 //post
-router.post('/', async (req, res)=>{
-    if(req.user.role !== 'admin') return res.status(401).send('Access denied');
+router.post('/', async (req, res) => {
+    if (req.user.role !== 'admin') return res.status(401).send('Access denied');
     const factory = new Factory({
         name: req.body.name,
         description: req.body.description,
@@ -40,26 +39,26 @@ router.post('/', async (req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
-    log('Factory_created', factory.name, req.user.user_name);
+    return log('Factory_created', factory.name, req.user.user_name);
 });
 
 //delete
-router.delete('/:id', async (req, res)=>{
-    if(req.user.role !== 'admin') return res.status(401).send('Access denied');
+router.delete('/:id', async (req, res) => {
+    if (req.user.role !== 'admin') return res.status(401).send('Access denied');
     try {
-        const data = await Factory.findByIdAndDelete({_id: req.params.id});
+        const data = await Factory.findByIdAndDelete({ _id: req.params.id });
         res.send(data);
     } catch (error) {
         res.status(400).send(error);
     }
-    log('Factory_removed', req.params.id, req.user.user_name);
+    return log('Factory_removed', req.params.id, req.user.user_name);
 });
 
 //update
-router.put('/:id', async (req, res)=>{
-    if(req.user.role !== 'admin') return res.status(401).send('Access denied');
+router.put('/:id', async (req, res) => {
+    if (req.user.role !== 'admin') return res.status(401).send('Access denied');
     try {
-        const factory = await Factory.findByIdAndDelete({_id: req.params.id});
+        const factory = await Factory.findByIdAndDelete({ _id: req.params.id });
         req.body.name ? factory.name = req.body.name : null;
         req.body.description ? factory.description = req.body.description : null;
         req.body.address ? factory.address = req.body.address : null;
@@ -70,7 +69,7 @@ router.put('/:id', async (req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
-    log('Factory_edited', JSON.stringify(req.body), req.user.user_name);
+    return log('Factory_edited', JSON.stringify(req.body), req.user.user_name);
 });
 
 module.exports = router;

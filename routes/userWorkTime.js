@@ -20,6 +20,8 @@ router.get('/', async (req, res) => {
 
 //post
 router.post('/', async (req, res) => {
+    const allowed = req.user.factories.includes(req.body.factory);
+    if (!allowed) return res.status(401).send('Wrong factory');
     const userWT = new UserWT({
         start_time: req.body.start_time,
         end_time: req.body.end_time,
