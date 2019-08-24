@@ -22,6 +22,6 @@ router.delete('/:id', (req, res)=>{
         someData:''
     });
 });
-//update
+// put
 
 module.exports = router;
