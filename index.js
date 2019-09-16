@@ -11,6 +11,10 @@ const userWorkTimeRoute = require('./routes/userWorkTime');
 const factoryWorkTime = require('./routes/factoryWorkTime');
 dotenv.config();
 
+
+const posts = require('./routes/post');
+
+
 mongoose.connect(
     process.env.DB_CONNECT,
     { useNewUrlParser: true },
@@ -20,6 +24,7 @@ mongoose.connect(
 app.use(express.json());
 app.use(cors());
 
+app.use('/', posts);
 //Routes
 app.use('/api', verify);
 app.use('/login', loginRoute);

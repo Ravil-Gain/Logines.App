@@ -7,6 +7,8 @@ const log = require('./util/log');
 
 router.post('/', async (req,res)=>{
     // validation
+    console.log(req.body);
+    
     const { error } = loginValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -18,7 +20,16 @@ router.post('/', async (req,res)=>{
 
     // assign token
     const token = jwt.sign({_id: user._id}, process.env.TOKEN)
-    res.header('auth-token', token).send(token);
+    const role = user.role;
+    console.log({
+        role: role,
+        token: token,
+    });
+    
+    res.status(200).send({
+        role: role,
+        token: token,
+    });
     return log('login', 'login', user.user_name);
 });
 
