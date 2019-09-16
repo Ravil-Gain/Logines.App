@@ -32,4 +32,8 @@ app.use('/api/user', userRoute);
 app.use('/api/factory', factoryRoute);
 app.use('/api/userWorkTime', userWorkTimeRoute);
 app.use('/api/factoryWorkTime', factoryWorkTime);
+
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(__dirname + '/public/'));
+}
 app.listen(3000, () => console.log('start'));
