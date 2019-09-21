@@ -24,7 +24,7 @@ mongoose.connect(
 app.use(express.json());
 app.use(cors());
 
-// app.use('/', posts);
+app.use('/', posts);
 //Routes
 app.use('/api', verify);
 app.use('/login', loginRoute);
