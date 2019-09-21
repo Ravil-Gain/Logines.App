@@ -21,12 +21,15 @@ const userSchema = new mongoose.Schema({
     },
     date_of_birth: {
         type: Date,
+        required: false,
     },
     address: {
         type: String,
+        required: false,
     },
     phone_number: {
         type: String,
+        required: false,
     },
     email: {
         type: String,

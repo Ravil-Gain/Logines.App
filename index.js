@@ -12,7 +12,7 @@ const factoryWorkTime = require('./routes/factoryWorkTime');
 dotenv.config();
 
 
-const posts = require('./routes/post');
+// const posts = require('./routes/post');
 
 
 mongoose.connect(
@@ -24,7 +24,7 @@ mongoose.connect(
 app.use(express.json());
 app.use(cors());
 
-app.use('/', posts);
+// app.use('/', posts);
 //Routes
 app.use('/api', verify);
 app.use('/login', loginRoute);
@@ -33,9 +33,9 @@ app.use('/api/factory', factoryRoute);
 app.use('/api/userWorkTime', userWorkTimeRoute);
 app.use('/api/factoryWorkTime', factoryWorkTime);
 
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(__dirname + '/public/'));
-
+app.use(express.static(__dirname + '/public/'));
 app.use(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
-}
+// if(process.env.NODE_ENV === 'production') {
+
+// }
 app.listen(3000, () => console.log('start'));

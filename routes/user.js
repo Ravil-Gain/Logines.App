@@ -5,14 +5,12 @@ const bcrypt = require('bcryptjs');
 const log = require('./util/log');
 
 router.post('/register', async (req, res) => {
+    console.log('/register');
+    
     if (req.user.role !== 'admin') return res.status(401).send('Access denied');
     // validation
     const { error } = registerValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-
-    // login
-    const user_nameCheck = await User.findOne({ user_name: req.body.user_name });
-    if (user_nameCheck) return res.status(400).send('user_name alredy exist');
 
     // email
     const emailCheck = await User.findOne({ email: req.body.email });
@@ -25,11 +23,8 @@ router.post('/register', async (req, res) => {
     // create user
     const user = new User({
         first_name: req.body.first_name,
-        middle_name: req.body.middle_name,
         last_name: req.body.last_name,
         date_of_birth: req.body.date_of_birth,
-        address: req.body.address,
-        phone_number: req.body.phone_number,
         email: req.body.email,
         user_name: req.body.user_name,
         password: await hashPassword(req.body.password),
