@@ -33,9 +33,8 @@ app.use('/api/factory', factoryRoute);
 app.use('/api/userWorkTime', userWorkTimeRoute);
 app.use('/api/factoryWorkTime', factoryWorkTime);
 
-app.use(express.static(__dirname + '/public/'));
-app.use(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
-// if(process.env.NODE_ENV === 'production') {
-
-// }
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(__dirname + '/public/'));
+    app.use(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+}
 app.listen(3000, () => console.log('start'));
