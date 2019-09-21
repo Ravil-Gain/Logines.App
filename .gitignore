@@ -1,4 +1,3 @@
 node_modules/
 /client
-/FrontEnd
-FrontEnd/vue-auth-vuex
+/FrontEndz
