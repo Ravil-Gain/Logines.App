@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const UserWT = require('../model/UserWT');
 const log = require('./util/log');
-
+const { workHoursValidation } = require('./util/validation');
 // get
 router.get('/', async (req, res) => {
     let data;
@@ -20,8 +20,13 @@ router.get('/', async (req, res) => {
 
 //post
 router.post('/', async (req, res) => {
+    console.log(req.body);
+    
     const allowed = req.user.factories.includes(req.body.factory);
     if (!allowed) return res.status(401).send('Wrong factory');
+    const { error } = workHoursValidation(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
     const userWT = new UserWT({
         start_time: req.body.start_time,
         end_time: req.body.end_time,
@@ -29,7 +34,7 @@ router.post('/', async (req, res) => {
         description: req.body.description,
         commited_amount: 0,
         user: req.user._id,
-        factory: req.user.factory,
+        factory: req.body.factory,
     });
     try {
         const saveWT = await userWT.save();

@@ -20,5 +20,14 @@ const loginValidation = data => {
     return Joi.validate(data, schema);
 }
 
+const workHoursValidation = data => {
+    const schema = {
+        start_time: joi.date().required(),
+        end_time: joi.date().required(),
+    }
+    return Joi.validate(data, schema);
+}
+
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
+module.exports.workHoursValidation = workHoursValidation
