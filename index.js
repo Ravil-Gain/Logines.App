@@ -33,9 +33,9 @@ app.use('/api/factory', factoryRoute);
 app.use('/api/userWorkTime', userWorkTimeRoute);
 app.use('/api/factoryWorkTime', factoryWorkTime);
 
-if(process.env.NODE_ENV === 'production') {
+// if(process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/public/'));
     app.use(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
-}
+// }
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('start'));

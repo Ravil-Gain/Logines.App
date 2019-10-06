@@ -22,8 +22,11 @@ const loginValidation = data => {
 
 const workHoursValidation = data => {
     const schema = {
-        start_time: joi.date().required(),
-        end_time: joi.date().required(),
+        start_time: Joi.date().required(),
+        end_time: Joi.date().required(),
+        lunch: Joi.number().integer(),
+        description: Joi.string().max(255),
+        factory: Joi.string().required(),
     }
     return Joi.validate(data, schema);
 }
